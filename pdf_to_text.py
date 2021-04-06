@@ -39,11 +39,6 @@ class PdfToText:
 
             # Process each page contained in the document.
             # Split each page into lines and append to self.pages
-            # pdf_pages = PDFPage.create_pages(document)
-            # for page in pdf_pages:
-            #     interpreter.process_page(page)
-            #     # self.pages.append(ret_str.getvalue())
-            #     self.pages.append(ret_str.getvalue().splitlines())
             for page in PDFPage.get_pages(pdf_file):
                 interpreter.process_page(page)
                 self.pages.append(ret_str.getvalue().splitlines())

@@ -20,7 +20,6 @@ text = pdf_reader.get_page(4)[0:500]
 
 # Speech synthesis -----------------------------------------------------------------------------------------------------
 
-
 text_to_speech = TextToSpeech()
 #text_to_speech.list_voices()
 text_to_speech.text_to_audio(text)
