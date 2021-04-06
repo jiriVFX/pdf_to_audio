@@ -11,12 +11,11 @@ class MaxCharsExceeded(Exception):
 
 
 class TextToSpeech(texttospeech.TextToSpeechClient):
-    def __init__(self):
+    def __init__(self, language_code):
         # Initialize TextToSpeechClient
         super().__init__()
-        #es-ES
-        #cs-CZ
-        self.voice = texttospeech.VoiceSelectionParams(language_code="en-US",
+        self.language_code = language_code
+        self.voice = texttospeech.VoiceSelectionParams(language_code=self.language_code,
                                                        ssml_gender=texttospeech.SsmlVoiceGender.FEMALE)
         self.audio_config = texttospeech.AudioConfig(audio_encoding=texttospeech.AudioEncoding.MP3)
 
