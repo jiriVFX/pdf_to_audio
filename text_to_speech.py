@@ -4,12 +4,6 @@ import os
 from constants import *
 
 
-class MaxCharsExceeded(Exception):
-    def __init__(self, message):
-        # Call the base class constructor with the parameters it needs
-        super().__init__(message)
-
-
 class TextToSpeech(texttospeech.TextToSpeechClient):
     def __init__(self, language_code):
         # Initialize TextToSpeechClient
@@ -21,7 +15,8 @@ class TextToSpeech(texttospeech.TextToSpeechClient):
 
     def text_to_audio(self, text):
         """Sends the text input to Google Text-To-Speech synthesizer and saves the response to audio file.
-        :type text: str"""
+        :type text: str
+        :rtype bool"""
         if len(text) <= MAX_CHARACTERS:
             response = self.synthesize_speech(
                 input=texttospeech.SynthesisInput(text=text),
@@ -29,10 +24,11 @@ class TextToSpeech(texttospeech.TextToSpeechClient):
                 audio_config=self.audio_config
             )
             self.save_audio_file(response)
+            return True
         else:
-            raise MaxCharsExceeded(f"text_to_audio: "
-                                   f"Number of characters in 'text' is {len(text)},"
-                                   f" but MAX_CHARACTERS is set to {MAX_CHARACTERS}.")
+            print(f"Number of characters in 'text' is {len(text)}, but MAX_CHARACTERS is set to {MAX_CHARACTERS}."
+                  f"Try a shorter text or increase MAX_CHARACTERS value (up to 5000).")
+            return False
 
     def save_audio_file(self, response):
         """Saves response to MP3 file in the format YYYY-MM-DD_HH-MM-SS.mp3.
