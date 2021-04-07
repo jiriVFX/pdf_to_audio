@@ -14,7 +14,7 @@ os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = path_to_your_key
 pdf_reader = PdfToText()
 # Enter the path to your PDF file
 pdf_reader.read_pdf("scandal_in_bohemia.pdf")
-# pdf_reader.read_pdf("test.pdf")
+# Get first 500 characters from 5th page of the document (pages start at 0 - like lists)
 text = pdf_reader.get_page(4)[0:500]
 
 # Speech synthesis -----------------------------------------------------------------------------------------------------
